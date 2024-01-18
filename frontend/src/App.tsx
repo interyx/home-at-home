@@ -2,26 +2,27 @@ import React from "react";
 import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
-import Nav from "react-bootstrap/Nav"
-import Navbar from "react-bootstrap/Navbar"
-
+import './index.css'
+import Navigation from './components/Navigation'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <Navbar>
+    <Container fluid className="tw-bg-slate-800 tw-text-slate-200 vh-100">
+     <Navigation /> 
       <Container>
-        <Navbar.Brand href="#home">Home@Home</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic navbar-nav" />
-        <Nav className="me-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#inventory">Inventory</Nav.Link>
-          <Nav.Link href="#kitchen">Kitchen</Nav.Link>
-          <Nav.Link href="#tasks">Tasks</Nav.Link>
-          <Nav.Link href="#calendar">Calendar</Nav.Link>
-        </Nav>
+        <Row>
+          <Col className="text-center">
+            <h1 className="display-1">Welcome to Home@Home!</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col>An app to augment your home.</Col>
+          <Col>To take things off of your plate.</Col>
+          <Col>While helping you get dinner on the table.</Col>
+        </Row>
       </Container>
-    </Navbar>
+    </Container>
   );
 }
 
