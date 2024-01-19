@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function Root() {
   return (
-    <Container fluid className="tw-bg-slate-800 tw-h-100 tw-text-slate-200">
+    <Container fluid className="tw-bg-slate-800 tw-text-slate-200 m-0 p-0">
       <Navigation />
       <Container fluid className="tw-bg-slate-800 px-4">
         <Row>
@@ -39,7 +39,7 @@ function Root() {
             <h4>To take things off of your plate.</h4>
             <p>
               Zombies reversus ab inferno, nam malum cerebro. De carne animata
-              corpora quaeritis. Summus sit​​, morbo vel maleficia? De
+              corpora quaeritis. Summus sit, morbo vel maleficia? De
               Apocalypsi undead dictum mauris. Hi mortuis soulless creaturas,
               imo monstra adventus vultus comedat cerebella viventium. Qui
               offenderit rapto, terribilem incessu. The voodoo sacerdos suscitat
