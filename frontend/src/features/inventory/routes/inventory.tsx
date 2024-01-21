@@ -2,8 +2,10 @@ import React from "react";
 import { useState } from "react";
 import { Compass } from "react-bootstrap-icons";
 import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
 import { Offcanvas, Accordion, Container, Collapse } from "react-bootstrap";
 
 export function Inventory() {
@@ -19,12 +21,15 @@ export function Inventory() {
         className="justify-content-md-center text-center pt-4"
         data-bs-theme="dark"
       >
+        <Row className="mx-auto pt-3 pb-5">
+          <div className="tw-font-kaushan tw-text-5xl tw-text-slate-300 tw-text-shadow tw-shadow-slate-500">Living Room</div>
+        </Row>
         <Col xs lg={8}>
-          <Accordion defaultActiveKey="1">
+          <Accordion defaultActiveKey="1" alwaysOpen>
             <Accordion.Item eventKey="1">
               <Accordion.Header>Containers</Accordion.Header>
               <Accordion.Body>
-                <Row xs={2} className="g-4">
+                <Row xs={2} lg={4} className="g-4">
                   {Array.from({ length: 4 }).map((_, idx) => (
                     <Col key={idx}>
                       <Card className="shadow-lg bg-body-tertiary">
@@ -43,6 +48,37 @@ export function Inventory() {
             </Accordion.Item>
             <Accordion.Item eventKey="2">
               <Accordion.Header>Items</Accordion.Header>
+              <Accordion.Body>
+                <ListGroup>
+                  <ListGroup.Item>
+                    <Row className="flex space-between">
+                      <Col xs={8}>Living Room TV</Col>
+                      <Col xs={4}>LRTV</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row className="flex space-between">
+                      <Col xs={8}>Ottoman</Col>
+                      <Col xs={4}>OTTO</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row className="flex space-between">
+                      <Col xs={8}>Couch</Col>
+                      <Col xs={4}>COUC</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row className="flex space-between">
+                      <Col xs={8}>Loveseat</Col>
+                      <Col xs={4}>LVST</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item className="d-grid g-2">
+                    <Button variant="success">Add New</Button>
+                  </ListGroup.Item>
+                </ListGroup>
+              </Accordion.Body>
             </Accordion.Item>
           </Accordion>
         </Col>
@@ -65,8 +101,8 @@ export function Inventory() {
             tw-text-white 
             tw-text-4xl 
             hover:tw-drop-shadow-2xl 
-            hover:tw-animate-bounce 
-            duration-10"
+            hover:tw-animate-spin
+            tw-duration-10"
         onClick={handleShow}
       >
         <Compass />
