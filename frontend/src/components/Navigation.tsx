@@ -11,14 +11,14 @@ export default function Navigation() {
         <Navbar.Brand href="#home">Home@Home</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="me-auto container-fluid">
             <Nav.Link as={NavLink} to="/" className="tw-text-white">
               Home
             </Nav.Link>
             <Nav.Link as={NavLink} to="/inventory">Inventory</Nav.Link>
             <Nav.Link href="#kitchen">Kitchen</Nav.Link>
             <Nav.Link href="#tasks">Tasks</Nav.Link>
-            <Nav.Link href="#calendar">Calendar</Nav.Link>
+            <Nav.Link className="d-flex float-end" href="#calendar">Calendar</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
