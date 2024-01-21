@@ -18,7 +18,7 @@ export const Inventory = () => {
           Main Content
           <button
             title="Open Navigation"
-            className="tw-fixed tw-z-90 tw-bottom-10 tw-left-8 tw-bg-slate-500 tw-w-12 tw-h-12 tw-rounded-full tw-drop-shadow-lg tw-flex tw-justify-center tw-items-center tw-text-white tw-text-4xl tw-hover:tw-bg-blue-700 hover:drop-shadow-2xl hover:animate-bounce duration-300"
+            className="tw-fixed tw-z-90 tw-bottom-10 tw-left-8 tw-bg-slate-500 tw-w-12 tw-h-12 tw-rounded-full tw-drop-shadow-lg tw-flex tw-justify-center tw-items-center tw-text-white tw-text-4xl hover:tw-drop-shadow-2xl tw-animate-bounce duration-10"
             onClick={handleShow}
           >
             <Compass />

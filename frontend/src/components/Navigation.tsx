@@ -12,7 +12,7 @@ export default function Navigation() {
         <Navbar.Toggle aria-controls="basic navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={NavLink} to="/home" className="tw-text-white">
+            <Nav.Link as={NavLink} to="/" className="tw-text-white">
               Home
             </Nav.Link>
             <Nav.Link as={NavLink} to="/inventory">Inventory</Nav.Link>
