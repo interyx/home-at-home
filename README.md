@@ -1,16 +1,16 @@
-# vite-mern-template
+# Home@Home
+A work-in-progress mobile-first web app to help manage your home.
 
-[![Depfu](https://badges.depfu.com/badges/1b70410a7764005553d576dd171dce8d/status.svg)](https://depfu.com)
-[![Depfu](https://badges.depfu.com/badges/1b70410a7764005553d576dd171dce8d/count.svg)](https://depfu.com/github/apicgg/vite-mern-template?project_id=38988)
-
-> Simple opinionated boilerplate for MERN stack with Vite and Redux Toolkit.
-> This includes React+TypeScript with familiar configuration for vite.config.ts for front-end and Express+TypeScript for back-end.
-
-This has been created with the official [Vite](https://vitejs.dev/) template (`npm create vite@latest`) and some extended setup. There are two separate folders called `server` and `client`. The entry point for the backend is `server/src/index.js`.
-
-Any package manager can be used with this project (e.g. npm, yarn or pnpm).
-
-> Thanks to [awesome-vite](https://github.com/vitejs/awesome-vite) for publishing this project.
+Planned features:
+- Track and organize items with a room-by-room home inventory
+- Search functionality to easily find items
+- Mark items as gifts and create wish lists and shopping lists
+- Attach receipts and pictures to items for inventory and insurance purposes
+- Keep track of kitchen inventory, ingredients, spices, and track expiration dates
+- Get notifications when ingredients are about to expire and recommended recipes
+- Generate a menu based on ingredients that are on-hand and recipes that are only missing a few ingredients
+- Keep track of tasks and chores, especially recurring ones
+- Keep track of events on home calendar such as work schedules and events
 
 ## Tools
 
@@ -33,16 +33,6 @@ Any package manager can be used with this project (e.g. npm, yarn or pnpm).
 ## Requirements
 
 - [Node.js](https://nodejs.org/en/) 18+
-
-## Demo
-
-![vite-mern-template-gh-demo](https://user-images.githubusercontent.com/78271602/234833309-fe8df564-2895-4727-be1e-c807fe142333.gif)
-
-## Installation
-
-```bash
-npx degit apicgg/vite-mern-template my-app
-```
 
 ## Install dependencies (npm or yarn or pnpm)
 
@@ -73,20 +63,3 @@ npm run dev:be
 npm run dev:fe
 ```
 
-- Remove the .git and .github folder and initialize your own git repository.
-
-## TODO
-
-- [x] Include eslint and prettier.
-- [x] Add testing framework.
-- [ ] Create a npm CLI library for scaffolding projects.
-
-## License
-
-MIT License.
-
-Please review the [License](https://github.com/apicgg/vite-mern-template/blob/main/LICENSE).
-
-## Contributors ✨
-
-Contributions of any kind welcome! Kindly have a look into [Contributing Guidelines](CONTRIBUTING.md)
