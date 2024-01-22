@@ -15,6 +15,29 @@ export function Inventory() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const containers = [
+    {
+      name: "TV Stand",
+      id: "TVST",
+      idx: 0
+    },
+    {
+      name: "Coffee Table",
+      id: "CFTB",
+      idx: 1
+    },
+    {
+      name: "Cube Shelf",
+      id: "CBSH",
+      idx: 2
+    },
+    {
+      name: "Shoe Rack",
+      id: "SHRK",
+      idx: 3
+    }
+  ];
+
   return (
     <>
       <Row
@@ -22,7 +45,9 @@ export function Inventory() {
         data-bs-theme="dark"
       >
         <Row className="mx-auto pt-3 pb-5">
-          <div className="tw-font-kaushan tw-text-5xl tw-text-slate-300 tw-text-shadow tw-shadow-slate-500">Living Room</div>
+          <div className="tw-font-kaushan tw-text-5xl tw-text-slate-300 tw-text-shadow tw-shadow-slate-500">
+            Living Room
+          </div>
         </Row>
         <Col xs lg={8}>
           <Accordion defaultActiveKey="1" alwaysOpen>
@@ -39,7 +64,7 @@ export function Inventory() {
               </Accordion.Header>
               <Accordion.Body>
                 <Row xs={2} lg={4} className="g-4">
-                  {Array.from({ length: 4 }).map((_, idx) => (
+                  {containers.map((container, idx) => (
                     <Col key={idx}>
                       <Card className="shadow-lg bg-body-tertiary">
                         <Card.Img
@@ -47,7 +72,7 @@ export function Inventory() {
                           src="https://placehold.co/100"
                         />
                         <Card.Body>
-                          <Card.Title>Container</Card.Title>
+                          <Card.Title>{container.name}</Card.Title>
                         </Card.Body>
                       </Card>
                     </Col>
