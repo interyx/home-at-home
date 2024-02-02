@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import { JSXElementConstructor, ReactElement, ReactNode, ReactPortal, useState } from "react";
 import { Compass, PlusSquareFill, PencilFill, TrashFill } from "react-bootstrap-icons";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
@@ -8,6 +7,43 @@ import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table"
 import { Offcanvas, Accordion, Container, Collapse } from "react-bootstrap";
 
+let containers: Array<any>;
+containers = [
+  {
+    "id": 1,
+    "name": "Living Room",
+    "containers": ["TV Stand", "Cube Bookshelf", "Shoe Rack"],
+    "items": [
+      {
+        "id": "OTTO",
+        "name": "Ottoman",
+        "color": "tartan"
+      },
+      {
+        "id": "COUC",
+        "name": "Couch",
+        "color": "white"
+      },
+      {
+        "id": "LVST",
+        "name": "Loveseat",
+        "color": "white"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Dining Room",
+    "containers": [6, 7, 8, 9],
+    "items": [4, 5, 6]
+  },
+  {
+    "id": 3,
+    "name": "Office",
+    "containers": [10, 11, 12, 13, 14]
+
+  }
+]
 export function Inventory() {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(true);
@@ -38,16 +74,16 @@ export function Inventory() {
                 </Col>
               </Accordion.Header>
               <Accordion.Body>
-                <Row xs={2} lg={4} className="g-4">
-                  {Array.from({ length: 4 }).map((_, idx) => (
-                    <Col key={idx}>
+                <Row xs={2} lg={4} className="g-4 mx-auto">
+                  {containers.map((container, idx) => (
+                    <Col key={container.id}>
                       <Card className="shadow-lg bg-body-tertiary">
                         <Card.Img
                           variant="top"
                           src="https://placehold.co/100"
                         />
                         <Card.Body>
-                          <Card.Title>Container</Card.Title>
+                          <Card.Text>{container.name}</Card.Text>
                         </Card.Body>
                       </Card>
                     </Col>
@@ -75,7 +111,24 @@ export function Inventory() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    {containers[0].items!.map((item: { name: string, id: string }) => (
+                      <tr key="idx">
+                        <td>{item.name}</td>
+                        <td>{item.id}</td>
+                        <td>
+                          <Button size={"sm"} variant="warning">
+                            <PencilFill />
+                          </Button>
+                          &nbsp;
+                          <Button size={"sm"} variant="danger">
+                            <TrashFill />
+                          </Button>
+                        </td>
+                      </tr>
+                    )
+
+                    )}
+                    {/* <tr>
                       <td>Ottoman</td>
                       <td>OTTO</td>
                       <td>
@@ -113,7 +166,7 @@ export function Inventory() {
                           <TrashFill />
                         </Button>
                       </td>
-                    </tr>
+                    </tr> */}
                   </tbody>
                 </Table>
               </Accordion.Body>
