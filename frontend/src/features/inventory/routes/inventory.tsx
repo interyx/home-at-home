@@ -1,11 +1,12 @@
 import React from "react";
 import { useState } from "react";
-import { Compass } from "react-bootstrap-icons";
+import { Compass, PlusSquareFill, PencilFill, TrashFill } from "react-bootstrap-icons";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
+import Table from "react-bootstrap/Table"
 import { Offcanvas, Accordion, Container, Collapse } from "react-bootstrap";
 
 export function Inventory() {
@@ -27,7 +28,16 @@ export function Inventory() {
         <Col xs lg={8}>
           <Accordion defaultActiveKey="1" alwaysOpen>
             <Accordion.Item eventKey="1">
-              <Accordion.Header>Containers</Accordion.Header>
+              <Accordion.Header>
+                <Col xs={9} lg={11} className="text-center">
+                  Containers
+                </Col>
+                <Col>
+                  <Button variant={"success"}>
+                    <PlusSquareFill />
+                  </Button>
+                </Col>
+              </Accordion.Header>
               <Accordion.Body>
                 <Row xs={2} lg={4} className="g-4">
                   {Array.from({ length: 4 }).map((_, idx) => (
@@ -47,42 +57,71 @@ export function Inventory() {
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="2">
-              <Accordion.Header>Items</Accordion.Header>
+              <Accordion.Header>
+                <Col xs={9} lg={11} className="text-center">
+                  Items
+                </Col>
+                <Col>
+                  <Button variant={"success"}>
+                    <PlusSquareFill />
+                  </Button></Col>
+              </Accordion.Header>
               <Accordion.Body>
-                <ListGroup>
-                  <ListGroup.Item>
-                    <Row className="flex space-between">
-                      <Col xs={8}>Living Room TV</Col>
-                      <Col xs={4}>LRTV</Col>
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <Row className="flex space-between">
-                      <Col xs={8}>Ottoman</Col>
-                      <Col xs={4}>OTTO</Col>
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <Row className="flex space-between">
-                      <Col xs={8}>Couch</Col>
-                      <Col xs={4}>COUC</Col>
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <Row className="flex space-between">
-                      <Col xs={8}>Loveseat</Col>
-                      <Col xs={4}>LVST</Col>
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item className="d-grid g-2">
-                    <Button variant="success">Add New</Button>
-                  </ListGroup.Item>
-                </ListGroup>
+                <Table responsive={"sm"}>
+                  <thead>
+                    <tr>
+                      <th scope="col">Item Name</th>
+                      <th scope="col">Code</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Ottoman</td>
+                      <td>OTTO</td>
+                      <td>
+                        <Button size={"sm"} variant="warning">
+                          <PencilFill />
+                        </Button>
+                        &nbsp;
+                        <Button size={"sm"} variant="danger">
+                          <TrashFill />
+                        </Button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Couch</td>
+                      <td>COUC</td>
+                      <td>
+                        <Button size={"sm"} variant="warning">
+                          <PencilFill />
+                        </Button>
+                        &nbsp;
+                        <Button size={"sm"} variant="danger">
+                          <TrashFill />
+                        </Button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Loveseat</td>
+                      <td>LVST</td>
+                      <td>
+                        <Button size={"sm"} variant="warning">
+                          <PencilFill />
+                        </Button>
+                        &nbsp;
+                        <Button size={"sm"} variant="danger">
+                          <TrashFill />
+                        </Button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </Table>
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
         </Col>
-      </Row>
+      </Row >
 
       <button
         title="Open Navigation"
@@ -108,6 +147,7 @@ export function Inventory() {
         <Compass />
       </button>
 
+      {/* // navigation offcanvas section -- separate component? */}
       <Offcanvas show={show} onHide={handleClose} data-bs-theme="dark">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Navigation</Offcanvas.Title>
