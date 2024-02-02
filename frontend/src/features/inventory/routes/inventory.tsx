@@ -5,6 +5,8 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table"
+import Modal from "react-bootstrap/Modal"
+import Form from 'react-bootstrap/Form'
 import { Offcanvas, Accordion, Container, Collapse } from "react-bootstrap";
 
 let containers: Array<any>;
@@ -44,12 +46,17 @@ containers = [
 
   }
 ]
+
+
 export function Inventory() {
-  const [show, setShow] = useState(false);
+  const [showNav, setShowNav] = useState(false);
   const [open, setOpen] = useState(true);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [showAddItem, setShowAddItem] = useState(false);
+  const [showEditItem, setShowEditItem] = useState(false);
+
+  const handleClose = () => setShowNav(false);
+  const handleShow = () => setShowNav(true);
 
   return (
     <>
@@ -97,11 +104,12 @@ export function Inventory() {
                   Items
                 </Col>
                 <Col>
-                  <Button variant={"success"}>
-                    <PlusSquareFill />
-                  </Button></Col>
+                </Col>
               </Accordion.Header>
               <Accordion.Body>
+                  <Button variant={"success"} onClick={() => (setShowAddItem(true))}>
+                    <PlusSquareFill  />
+                  </Button>
                 <Table responsive={"sm"}>
                   <thead>
                     <tr>
@@ -116,7 +124,7 @@ export function Inventory() {
                         <td>{item.name}</td>
                         <td>{item.id}</td>
                         <td>
-                          <Button size={"sm"} variant="warning">
+                          <Button size={"sm"} variant="warning" >
                             <PencilFill />
                           </Button>
                           &nbsp;
@@ -125,48 +133,7 @@ export function Inventory() {
                           </Button>
                         </td>
                       </tr>
-                    )
-
-                    )}
-                    {/* <tr>
-                      <td>Ottoman</td>
-                      <td>OTTO</td>
-                      <td>
-                        <Button size={"sm"} variant="warning">
-                          <PencilFill />
-                        </Button>
-                        &nbsp;
-                        <Button size={"sm"} variant="danger">
-                          <TrashFill />
-                        </Button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Couch</td>
-                      <td>COUC</td>
-                      <td>
-                        <Button size={"sm"} variant="warning">
-                          <PencilFill />
-                        </Button>
-                        &nbsp;
-                        <Button size={"sm"} variant="danger">
-                          <TrashFill />
-                        </Button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Loveseat</td>
-                      <td>LVST</td>
-                      <td>
-                        <Button size={"sm"} variant="warning">
-                          <PencilFill />
-                        </Button>
-                        &nbsp;
-                        <Button size={"sm"} variant="danger">
-                          <TrashFill />
-                        </Button>
-                      </td>
-                    </tr> */}
+                    ))}
                   </tbody>
                 </Table>
               </Accordion.Body>
@@ -199,8 +166,27 @@ export function Inventory() {
         <Compass />
       </button>
 
+      <Modal show={showAddItem} onHide={() => setShowAddItem(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Item</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowAddItem(false)}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={() => setShowAddItem(false)}>
+            Add Item
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       {/* // navigation offcanvas section -- separate component? */}
-      <Offcanvas show={show} onHide={handleClose} data-bs-theme="dark">
+      <Offcanvas show={showNav} onHide={handleClose} data-bs-theme="dark">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Navigation</Offcanvas.Title>
         </Offcanvas.Header>
@@ -221,11 +207,9 @@ export function Inventory() {
                     <Collapse in={open}>
                       <div id="collapse-tree">
                         <nav className="nav nav-pills flex-column">
-                          <a className="nav-link ms-3 my-1">Living Room</a>
-                          <a className="nav-link ms-3 my-1">Dining Room</a>
-                          <a className="nav-link ms-3 my-1">Kitchen</a>
-                          <a className="nav-link ms-3 my-1">Office</a>
-                          <a className="nav-link ms-3 my-1">Bedroom</a>
+                          {containers.map((container, idx) => (
+                            <a className="nav-link ms-3 my-1" key={idx}>{container.name}</a>
+                          ))}
                         </nav>
                       </div>
                     </Collapse>
