@@ -7,6 +7,7 @@ import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table"
 import Modal from "react-bootstrap/Modal"
 import Form from 'react-bootstrap/Form'
+import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { Offcanvas, Accordion, Container, Collapse } from "react-bootstrap";
 
 let containers: Array<any>;
@@ -107,9 +108,9 @@ export function Inventory() {
                 </Col>
               </Accordion.Header>
               <Accordion.Body>
-                  <Button variant={"success"} onClick={() => (setShowAddItem(true))}>
-                    <PlusSquareFill  />
-                  </Button>
+                <Button variant={"success"} onClick={() => (setShowAddItem(true))}>
+                  <PlusSquareFill />
+                </Button>
                 <Table responsive={"sm"}>
                   <thead>
                     <tr>
@@ -172,7 +173,12 @@ export function Inventory() {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            
+            <FloatingLabel label="Item Name" controlId="addItem.name" className="mb-3">
+              <Form.Control type="text" placeholder="Exquisite Shrubbery" />
+            </FloatingLabel>
+            <FloatingLabel label="">
+
+            </FloatingLabel>
           </Form>
         </Modal.Body>
         <Modal.Footer>
