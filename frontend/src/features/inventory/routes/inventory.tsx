@@ -101,21 +101,21 @@ export function Inventory() {
           </Col>
         </Row>
         <Row xs={2} lg={4} className="g-4 mx-auto">
-          {containers.map((container) => (
-            <Col key={container.id}>
+          {containers[0].containers.map((container, idx) => (
+            <Col key={idx}>
               <Card className="shadow-lg bg-body-tertiary">
                 <Card.Img
                   variant="top"
                   src="https://placehold.co/100"
                 />
                 <Card.Body>
-                  <Card.Text>{container.name}</Card.Text>
+                  <Card.Text>{container}</Card.Text>
                 </Card.Body>
               </Card>
             </Col>
           ))}
         </Row>
-        <Row className="my-3 mx-auto tw-border tw-border-slate-700 tw-bg-slate-900">
+        <Row className="mt-3 mx-auto tw-border tw-border-slate-700 tw-bg-slate-900">
           <Col xs={9} lg={10} className="text-center">
             <h2 className="tw-font-kaushan tw-text-slate-300 my-2">
               Items
@@ -130,7 +130,7 @@ export function Inventory() {
             </Button>
           </Col>
         </Row>
-        <Table responsive={"sm"} bordered>
+        <Table responsive={"sm"} bordered className="mt-0 pt-0">
           <thead>
             <tr>
               <th scope="col">Item Name</th>
