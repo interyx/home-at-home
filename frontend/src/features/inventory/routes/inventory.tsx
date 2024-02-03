@@ -72,101 +72,94 @@ export function Inventory() {
   const handleClose = () => setShowNav(false);
   const handleShow = () => setShowNav(true);
   const [data, updateData] = useState({ name: "", url: "" });
-  const getHandler = (valueName:string) => {
+  const getHandler = (valueName: string) => {
     return (event: React.ChangeEvent<HTMLInputElement>) => {
-      updateData({...data, [valueName]: event?.target.value})
+      updateData({ ...data, [valueName]: event?.target.value })
     }
   }
 
   return (
     <>
-      <Row
-        className="justify-content-md-center text-center pt-4"
+      <Container
+        className="justify-content-md-center text-center pt-4 px-0"
         data-bs-theme="dark"
+        fluid="md"
       >
         <Row className="mx-auto pt-3 pb-5">
           <div className="tw-font-kaushan tw-text-5xl tw-text-slate-300 tw-text-shadow tw-shadow-slate-500">
             Living Room
           </div>
         </Row>
-        <Col xs lg={8}>
-          <Accordion defaultActiveKey="1" alwaysOpen>
-            <Accordion.Item eventKey="1">
-              <Accordion.Header>
-                <Col xs={9} lg={11} className="text-center">
-                  Containers
-                </Col>
-                <Col>
-                  <Button variant={"success"}>
-                    <PlusSquareFill />
-                  </Button>
-                </Col>
-              </Accordion.Header>
-              <Accordion.Body>
-                <Row xs={2} lg={4} className="g-4 mx-auto">
-                  {containers.map((container) => (
-                    <Col key={container.id}>
-                      <Card className="shadow-lg bg-body-tertiary">
-                        <Card.Img
-                          variant="top"
-                          src="https://placehold.co/100"
-                        />
-                        <Card.Body>
-                          <Card.Text>{container.name}</Card.Text>
-                        </Card.Body>
-                      </Card>
-                    </Col>
-                  ))}
-                </Row>
-              </Accordion.Body>
-            </Accordion.Item>
-            <Accordion.Item eventKey="2">
-              <Accordion.Header>
-                <Col xs={9} lg={11} className="text-center">
-                  Items
-                </Col>
-                <Col></Col>
-              </Accordion.Header>
-              <Accordion.Body>
-                <Button
-                  variant={"success"}
-                  onClick={() => setShowAddItem(true)}
-                >
-                  <PlusSquareFill />
-                </Button>
-                <Table responsive={"sm"}>
-                  <thead>
-                    <tr>
-                      <th scope="col">Item Name</th>
-                      <th scope="col">Code</th>
-                      <th scope="col">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {containers[0].items!.map(
-                      (item: { name: string; id: string }) => (
-                        <tr key="idx">
-                          <td>{item.name}</td>
-                          <td>{item.id}</td>
-                          <td>
-                            <Button size={"sm"} variant="warning">
-                              <PencilFill />
-                            </Button>
-                            &nbsp;
-                            <Button size={"sm"} variant="danger">
-                              <TrashFill />
-                            </Button>
-                          </td>
-                        </tr>
-                      )
-                    )}
-                  </tbody>
-                </Table>
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
-        </Col>
-      </Row>
+        <Row className="my-3 mx-auto tw-border tw-border-slate-700 tw-bg-slate-900">
+          <Col xs={9} lg={10} className="text-center">
+            <h2 className="tw-font-kaushan tw-text-slate-300 my-2">Containers</h2>
+          </Col>
+          <Col className="my-auto">
+            <Button variant={"success"}>
+              <PlusSquareFill />
+            </Button>
+          </Col>
+        </Row>
+        <Row xs={2} lg={4} className="g-4 mx-auto">
+          {containers.map((container) => (
+            <Col key={container.id}>
+              <Card className="shadow-lg bg-body-tertiary">
+                <Card.Img
+                  variant="top"
+                  src="https://placehold.co/100"
+                />
+                <Card.Body>
+                  <Card.Text>{container.name}</Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+        <Row className="my-3 mx-auto tw-border tw-border-slate-700 tw-bg-slate-900">
+          <Col xs={9} lg={10} className="text-center">
+            <h2 className="tw-font-kaushan tw-text-slate-300 my-2">
+              Items
+            </h2>
+          </Col>
+          <Col xs={3} lg={2} className="my-auto">
+            <Button
+              variant={"success"}
+              onClick={() => setShowAddItem(true)}
+            >
+              <PlusSquareFill />
+            </Button>
+          </Col>
+        </Row>
+        <Table responsive={"sm"} bordered>
+          <thead>
+            <tr>
+              <th scope="col">Item Name</th>
+              <th scope="col">Code</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {containers[0].items!.map(
+              (item: { name: string; id: string }) => (
+                <tr key="idx">
+                  <td>{item.name}</td>
+                  <td>{item.id}</td>
+                  <td>
+                    <Button size={"sm"} variant="warning">
+                      <PencilFill />
+                    </Button>
+                    &nbsp;
+                    <Button size={"sm"} variant="danger">
+                      <TrashFill />
+                    </Button>
+                  </td>
+                </tr>
+              )
+            )}
+          </tbody>
+        </Table>
+
+      </Container >
 
       <button
         title="Open Navigation"
@@ -194,7 +187,7 @@ export function Inventory() {
 
       <Modal show={showAddItem} onHide={() => setShowAddItem(false)} data-bs-theme="dark">
         <Modal.Header closeButton>
-          <Modal.Title style={{color: "white"}}>Add Item</Modal.Title>
+          <Modal.Title style={{ color: "white" }}>Add Item</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
