@@ -1,63 +1,66 @@
-import React from 'react'
+import React from "react";
 import { useState } from "react";
-import { Compass, PlusSquareFill, PencilFill, TrashFill } from "react-bootstrap-icons";
+import {
+  Compass,
+  PlusSquareFill,
+  PencilFill,
+  TrashFill,
+} from "react-bootstrap-icons";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import Table from "react-bootstrap/Table"
-import Modal from "react-bootstrap/Modal"
-import Form from 'react-bootstrap/Form'
+import Table from "react-bootstrap/Table";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { Offcanvas, Accordion, Container, Collapse } from "react-bootstrap";
 
 type item = {
-  "id": string,
-  "name": string
-}
+  id: string;
+  name: string;
+};
 
 type container = {
-  "id": number,
-  "name": string,
-  "containers": string[],
-  "items": item[]
-}
+  id: number;
+  name: string;
+  containers: string[];
+  items: item[];
+};
 
-
-const containers:container[] = [
+const containers: container[] = [
   {
-    "id": 1,
-    "name": "Living Room",
-    "containers": ["TV Stand", "Cube Bookshelf", "Shoe Rack"],
-    "items": [
+    id: 1,
+    name: "Living Room",
+    containers: ["TV Stand", "Cube Bookshelf", "Shoe Rack"],
+    items: [
       {
-        "id": "OTTO",
-        "name": "Ottoman",
+        id: "OTTO",
+        name: "Ottoman",
       },
       {
-        "id": "COUC",
-        "name": "Couch",
+        id: "COUC",
+        name: "Couch",
       },
       {
-        "id": "LVST",
-        "name": "Loveseat",
-      }
-    ]
+        id: "LVST",
+        name: "Loveseat",
+      },
+    ],
   },
   {
-    "id": 2,
-    "name": "Dining Room",
-    "containers": [],
-    "items": []
+    id: 2,
+    name: "Dining Room",
+    containers: [],
+    items: [],
   },
   {
-    "id": 3,
-    "name": "Office",
-    "containers": [],
-    "items": []
-  }
-]
-
+    id: 3,
+    name: "Office",
+    containers: [],
+    items: [],
+  },
+];
 
 export function Inventory() {
   const [showNav, setShowNav] = useState(false);
@@ -68,6 +71,12 @@ export function Inventory() {
 
   const handleClose = () => setShowNav(false);
   const handleShow = () => setShowNav(true);
+  const [data, updateData] = useState({ name: "", url: "" });
+  const getHandler = (valueName:string) => {
+    return (event: React.ChangeEvent<HTMLInputElement>) => {
+      updateData({...data, [valueName]: event?.target.value})
+    }
+  }
 
   return (
     <>
@@ -76,7 +85,9 @@ export function Inventory() {
         data-bs-theme="dark"
       >
         <Row className="mx-auto pt-3 pb-5">
-          <div className="tw-font-kaushan tw-text-5xl tw-text-slate-300 tw-text-shadow tw-shadow-slate-500">Living Room</div>
+          <div className="tw-font-kaushan tw-text-5xl tw-text-slate-300 tw-text-shadow tw-shadow-slate-500">
+            Living Room
+          </div>
         </Row>
         <Col xs lg={8}>
           <Accordion defaultActiveKey="1" alwaysOpen>
@@ -114,11 +125,13 @@ export function Inventory() {
                 <Col xs={9} lg={11} className="text-center">
                   Items
                 </Col>
-                <Col>
-                </Col>
+                <Col></Col>
               </Accordion.Header>
               <Accordion.Body>
-                <Button variant={"success"} onClick={() => (setShowAddItem(true))}>
+                <Button
+                  variant={"success"}
+                  onClick={() => setShowAddItem(true)}
+                >
                   <PlusSquareFill />
                 </Button>
                 <Table responsive={"sm"}>
@@ -130,28 +143,30 @@ export function Inventory() {
                     </tr>
                   </thead>
                   <tbody>
-                    {containers[0].items!.map((item: { name: string, id: string }) => (
-                      <tr key="idx">
-                        <td>{item.name}</td>
-                        <td>{item.id}</td>
-                        <td>
-                          <Button size={"sm"} variant="warning" >
-                            <PencilFill />
-                          </Button>
-                          &nbsp;
-                          <Button size={"sm"} variant="danger">
-                            <TrashFill />
-                          </Button>
-                        </td>
-                      </tr>
-                    ))}
+                    {containers[0].items!.map(
+                      (item: { name: string; id: string }) => (
+                        <tr key="idx">
+                          <td>{item.name}</td>
+                          <td>{item.id}</td>
+                          <td>
+                            <Button size={"sm"} variant="warning">
+                              <PencilFill />
+                            </Button>
+                            &nbsp;
+                            <Button size={"sm"} variant="danger">
+                              <TrashFill />
+                            </Button>
+                          </td>
+                        </tr>
+                      )
+                    )}
                   </tbody>
                 </Table>
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
         </Col>
-      </Row >
+      </Row>
 
       <button
         title="Open Navigation"
@@ -177,17 +192,35 @@ export function Inventory() {
         <Compass />
       </button>
 
-      <Modal show={showAddItem} onHide={() => setShowAddItem(false)}>
+      <Modal show={showAddItem} onHide={() => setShowAddItem(false)} data-bs-theme="dark">
         <Modal.Header closeButton>
-          <Modal.Title>Add Item</Modal.Title>
+          <Modal.Title style={{color: "white"}}>Add Item</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <FloatingLabel label="Item Name" controlId="addItem.name" className="mb-3">
-              <Form.Control type="text" placeholder="Exquisite Shrubbery" />
+            <FloatingLabel
+              label="Item Name"
+              controlId="addItem.name"
+              className="mb-3"
+            >
+              <Form.Control
+                type="text"
+                placeholder="Item Name"
+                value={data.name}
+                onChange={getHandler('name')}
+              />
             </FloatingLabel>
-            <FloatingLabel label="">
-
+            <FloatingLabel
+              label="Image URL"
+              controlId="addItem.image"
+              className="mb-3"
+            >
+              <Form.Control
+                type="text"
+                placeholder="Item Image"
+                value={data.url}
+                onChange={getHandler('url')}
+              />
             </FloatingLabel>
           </Form>
         </Modal.Body>
@@ -224,7 +257,9 @@ export function Inventory() {
                       <div id="collapse-tree">
                         <nav className="nav nav-pills flex-column">
                           {containers.map((container, idx) => (
-                            <a className="nav-link ms-3 my-1" key={idx}>{container.name}</a>
+                            <a className="nav-link ms-3 my-1" key={idx}>
+                              {container.name}
+                            </a>
                           ))}
                         </nav>
                       </div>
