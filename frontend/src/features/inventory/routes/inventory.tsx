@@ -1,4 +1,5 @@
-import { JSXElementConstructor, ReactElement, ReactNode, ReactPortal, useState } from "react";
+import React from 'react'
+import { useState } from "react";
 import { Compass, PlusSquareFill, PencilFill, TrashFill } from "react-bootstrap-icons";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
@@ -10,8 +11,20 @@ import Form from 'react-bootstrap/Form'
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { Offcanvas, Accordion, Container, Collapse } from "react-bootstrap";
 
-let containers: Array<any>;
-containers = [
+type item = {
+  "id": string,
+  "name": string
+}
+
+type container = {
+  "id": number,
+  "name": string,
+  "containers": string[],
+  "items": item[]
+}
+
+
+const containers:container[] = [
   {
     "id": 1,
     "name": "Living Room",
@@ -20,31 +33,28 @@ containers = [
       {
         "id": "OTTO",
         "name": "Ottoman",
-        "color": "tartan"
       },
       {
         "id": "COUC",
         "name": "Couch",
-        "color": "white"
       },
       {
         "id": "LVST",
         "name": "Loveseat",
-        "color": "white"
       }
     ]
   },
   {
     "id": 2,
     "name": "Dining Room",
-    "containers": [6, 7, 8, 9],
-    "items": [4, 5, 6]
+    "containers": [],
+    "items": []
   },
   {
     "id": 3,
     "name": "Office",
-    "containers": [10, 11, 12, 13, 14]
-
+    "containers": [],
+    "items": []
   }
 ]
 
@@ -54,7 +64,7 @@ export function Inventory() {
   const [open, setOpen] = useState(true);
 
   const [showAddItem, setShowAddItem] = useState(false);
-  const [showEditItem, setShowEditItem] = useState(false);
+  // const [showEditItem, setShowEditItem] = useState(false);
 
   const handleClose = () => setShowNav(false);
   const handleShow = () => setShowNav(true);
@@ -83,7 +93,7 @@ export function Inventory() {
               </Accordion.Header>
               <Accordion.Body>
                 <Row xs={2} lg={4} className="g-4 mx-auto">
-                  {containers.map((container, idx) => (
+                  {containers.map((container) => (
                     <Col key={container.id}>
                       <Card className="shadow-lg bg-body-tertiary">
                         <Card.Img
