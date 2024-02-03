@@ -67,7 +67,8 @@ export function Inventory() {
   const [open, setOpen] = useState(true);
 
   const [showAddItem, setShowAddItem] = useState(false);
-  // const [showEditItem, setShowEditItem] = useState(false);
+  const [showEditItem, setShowEditItem] = useState(false);
+  const [editedItem, setEditedItem] = useState<item|null>(null);
 
   const handleClose = () => setShowNav(false);
   const handleShow = () => setShowNav(true);
@@ -76,6 +77,11 @@ export function Inventory() {
     return (event: React.ChangeEvent<HTMLInputElement>) => {
       updateData({ ...data, [valueName]: event?.target.value })
     }
+  }
+
+  const handleEdit = (item:item) => {
+    setEditedItem(item);
+    setShowEditItem(true);
   }
 
   return (
@@ -145,7 +151,7 @@ export function Inventory() {
                   <td>{item.name}</td>
                   <td>{item.id}</td>
                   <td>
-                    <Button size={"sm"} variant="warning">
+                    <Button size={"sm"} variant="warning" onClick={() => handleEdit(item)}>
                       <PencilFill />
                     </Button>
                     &nbsp;
@@ -184,6 +190,21 @@ export function Inventory() {
       >
         <Compass />
       </button>
+
+      <Modal show={showEditItem} onHide={() => setShowEditItem(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Item Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            {editedItem !== null && Object.keys(editedItem).map(e => (
+                <p>{e}: {editedItem[e as keyof item]}</p>
+            ))}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="warning" onClick={() => setShowEditItem(false)}>Close</Button>
+          <Button variant="primary" onClick={() => setShowEditItem(false)}>Submit</Button>
+        </Modal.Footer>
+      </Modal>
 
       <Modal show={showAddItem} onHide={() => setShowAddItem(false)} data-bs-theme="dark">
         <Modal.Header closeButton>
