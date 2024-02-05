@@ -215,7 +215,7 @@ export function Inventory() {
             <FloatingLabel
               label="Item Name"
               controlId="addItem.name"
-              className="mb-3"
+              className="mb-2"
             >
               <Form.Control
                 type="text"
