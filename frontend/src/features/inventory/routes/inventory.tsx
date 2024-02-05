@@ -193,9 +193,9 @@ export function Inventory() {
 
       <Modal show={showEditItem} onHide={() => setShowEditItem(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Item Details</Modal.Title>
+          <Modal.Title><span className="tw-text-slate-300">Edit Item Details</span></Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="tw-text-slate-300">
             {editedItem !== null && Object.keys(editedItem).map(e => (
                 <p>{e}: {editedItem[e as keyof item]}</p>
             ))}
@@ -206,7 +206,7 @@ export function Inventory() {
         </Modal.Footer>
       </Modal>
 
-      <Modal show={showAddItem} onHide={() => setShowAddItem(false)} data-bs-theme="dark">
+      <Modal show={showAddItem} onHide={() => setShowAddItem(false)}>
         <Modal.Header closeButton>
           <Modal.Title style={{ color: "white" }}>Add Item</Modal.Title>
         </Modal.Header>
