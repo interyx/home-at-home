@@ -68,18 +68,18 @@ export function Inventory() {
 
   const [showAddItem, setShowAddItem] = useState(false);
   const [showEditItem, setShowEditItem] = useState(false);
-  const [editedItem, setEditedItem] = useState<item|null>(null);
+  const [editedItem, setEditedItem] = useState<item | null>(null);
 
   const handleClose = () => setShowNav(false);
   const handleShow = () => setShowNav(true);
-  const [data, updateData] = useState({ name: "", url: "" });
+  const [data, updateData] = useState({ name: "", url: "", uid: "" });
   const getHandler = (valueName: string) => {
     return (event: React.ChangeEvent<HTMLInputElement>) => {
       updateData({ ...data, [valueName]: event?.target.value })
     }
   }
 
-  const handleEdit = (item:item) => {
+  const handleEdit = (item: item) => {
     setEditedItem(item);
     setShowEditItem(true);
   }
@@ -88,7 +88,6 @@ export function Inventory() {
     <>
       <Container
         className="justify-content-md-center text-center pt-4 px-0"
-        data-bs-theme="dark"
         fluid="md"
       >
         <Row className="mx-auto pt-3 pb-5">
@@ -196,9 +195,9 @@ export function Inventory() {
           <Modal.Title><span className="tw-text-slate-300">Edit Item Details</span></Modal.Title>
         </Modal.Header>
         <Modal.Body className="tw-text-slate-300">
-            {editedItem !== null && Object.keys(editedItem).map(e => (
-                <p>{e}: {editedItem[e as keyof item]}</p>
-            ))}
+          {editedItem !== null && Object.keys(editedItem).map(e => (
+            <p>{e}: {editedItem[e as keyof item]}</p>
+          ))}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="warning" onClick={() => setShowEditItem(false)}>Close</Button>
@@ -236,6 +235,18 @@ export function Inventory() {
                 onChange={getHandler('url')}
               />
             </FloatingLabel>
+            <FloatingLabel 
+            label="Unique ID (serial number, barcode etc)"
+            controlId="addItem.uid"
+            className="mb-2"
+            >
+              <Form.Control 
+                type="text"
+                placeholder="Unique ID"
+                value={data.uid}
+                onChange={getHandler('uid')}
+              />
+            </FloatingLabel>
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -249,7 +260,7 @@ export function Inventory() {
       </Modal>
 
       {/* // navigation offcanvas section -- separate component? */}
-      <Offcanvas show={showNav} onHide={handleClose} data-bs-theme="dark">
+      <Offcanvas show={showNav} onHide={handleClose}>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Navigation</Offcanvas.Title>
         </Offcanvas.Header>
