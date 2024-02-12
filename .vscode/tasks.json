@@ -3,11 +3,11 @@
 	"tasks": [
 		{
 			"type": "npm",
-			"script": "build:frontend",
-			"group": "build",
+			"script": "start",
+			"path": "frontend",
 			"problemMatcher": [],
-			"label": "npm: build:frontend",
-			"detail": "npm run build --prefix ./frontend"
+			"label": "npm: start - frontend",
+			"detail": "vite"
 		}
 	]
 }
