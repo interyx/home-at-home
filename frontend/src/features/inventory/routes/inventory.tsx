@@ -24,7 +24,8 @@ import {
   DropdownItem,
   DropdownMenu,
   Breadcrumbs,
-  BreadcrumbItem
+  BreadcrumbItem,
+  DropdownSection
 } from "@nextui-org/react";
 import React from "react"
 import { EditButton, DeleteButton } from "../components/ActionButton";
@@ -32,9 +33,9 @@ import { useState } from "react";
 import { LiaAngleDoubleDownSolid } from "react-icons/lia";
 import { GrInspect } from "react-icons/gr";
 import { BsPencilFill } from "react-icons/bs";
-import { FaTrash } from "react-icons/fa";
+import { FaMinusSquare, FaTrash } from "react-icons/fa";
 import { FaPlusSquare } from "react-icons/fa";
-import { item, container } from "../../../types"
+import { item, container, room } from "../../../types"
 
 
 export default function Inventory() {
@@ -42,8 +43,19 @@ export default function Inventory() {
   const containers: container[] = [
     {
       id: 0,
+      name: "TV Stand",
+      description: "Shelf holding TV, consoles, and display items.",
+      containers: [],
+      items: [],
+      parent: "Living Room"
+    },
+  ]
+  const rooms: room[] = [
+    {
+      id: 0,
       name: "Living Room",
       parent: "Home",
+      description: "The first room on entering the house, holding the TV and sofa.  Upstairs are the bedroom and office, and forward is the dining room.",
       containers: ["TV Stand", "Black Cube Bookshelf From The Old House, Filled with Memories of Brighter Days", "Shoe Rack", "Cabinet", "Utility Closet"],
       items: [
         {
@@ -69,6 +81,7 @@ export default function Inventory() {
       parent: "Home",
       containers: [],
       items: [],
+      description: "The dining room."
     },
     {
       id: 2,
@@ -76,13 +89,12 @@ export default function Inventory() {
       parent: "Home",
       containers: [],
       items: [],
+      description: "The Office (US Version)"
     },
   ];
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [activeContainer, updateActiveContainer] = useState(containers[0]);
-
-
+  const [activeContainer, updateActiveContainer] = useState(rooms[0]);
 
 
   const columns = [{
@@ -108,7 +120,7 @@ export default function Inventory() {
               <DropdownTrigger>
                 <Button variant="ghost" endContent={<LiaAngleDoubleDownSolid />}>{activeContainer.name}</Button>
               </DropdownTrigger>
-              <DropdownMenu aria-label="Dynamic Actions" items={containers} onAction={(key) => updateActiveContainer(containers[key as number])}>
+              <DropdownMenu aria-label="Dynamic Actions" items={rooms} onAction={(key) => updateActiveContainer(rooms[key as number])}>
                 {(item) => (
                   <DropdownItem key={item.id}>{item.name}</DropdownItem>
                 )}
@@ -122,7 +134,7 @@ export default function Inventory() {
       <div className="lg:grid lg:grid-cols-3 mt-4">
         <div className="grid lg:col-start-2 grid-cols-8 mt-3">
           <Button
-            className="col-start-6 col-span-3 lg:col-start-7 lg:col-span-2 mb-2"
+            className="hidden col-start-6 col-span-3 lg:col-start-7 lg:col-span-2 mb-2"
             size="sm"
             startContent={<FaPlusSquare />}
             color="secondary"
@@ -130,6 +142,13 @@ export default function Inventory() {
           >
             Add Container
           </Button>
+        </div>
+        <div className="hidden md:block col-start-1 text-center mx-36">
+          <h3 className="text-3xl  font-prata">{rooms[0].name}</h3>
+          <h3 className="text-xl">{rooms[0].description}</h3>
+          <Button className="flex mx-auto my-3 w-60" startContent={<FaPlusSquare />} color="primary">Add Container</Button>
+          <Button className="flex mx-auto my-3 w-60" startContent={<FaPlusSquare />} color="secondary">Add Item</Button>
+          <Button className="flex mx-auto my-3 w-60" color="danger" startContent={<FaMinusSquare />}>Delete Room</Button>
         </div>
         <div className="grid lg:col-start-2 grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-4 border border-secondary p-3 lg:p-5">
           {activeContainer.containers.map((item, idx) => {
@@ -140,14 +159,13 @@ export default function Inventory() {
                   width="100%"
                   alt={item}
                   className="w-full h-full object-cover z-0"
-                  src={"https://picsum.photos/200"}
+                  src={`https://loremflickr.com/100/100/furniture?random=${idx}`}
                 />
-                <CardBody className="overflow-visible p-0">
-                  <div className="truncate text-small font-bold pt-2 pl-2">{item}</div>
-                </CardBody>
                 <CardFooter className="justify-center">
-                  <EditButton clickHandler={editAlert} />
-                  <DeleteButton clickHandler={deleteAlert} />
+                  <p className="truncate text-sm font-bold">
+                    {item}
+                  </p>
+
                 </CardFooter>
               </Card>
             )
@@ -157,7 +175,7 @@ export default function Inventory() {
         <h2 className="lg:col-start-2 text-center text-3xl text-warning-800 font-prata mt-4">Items</h2>
         <div className="grid lg:col-start-2 grid-cols-8 mt-3">
           <Button
-            className="col-start-6 col-span-3 lg:col-start-7 lg:col-span-2 mb-2"
+            className="hidden col-start-6 col-span-3 lg:col-start-7 lg:col-span-2 mb-2"
             startContent={<FaPlusSquare />}
             size="sm"
             onPress={onOpen}
