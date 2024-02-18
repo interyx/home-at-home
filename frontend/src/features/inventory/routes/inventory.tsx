@@ -33,11 +33,11 @@ import { useState } from "react";
 import { LiaAngleDoubleDownSolid } from "react-icons/lia";
 import { GrInspect } from "react-icons/gr";
 import { BsPencilFill } from "react-icons/bs";
-import { FaMinusSquare, FaTrash } from "react-icons/fa";
+import {FaInfoCircle, FaMinusSquare, FaTrash} from "react-icons/fa";
 import { FaPlusSquare } from "react-icons/fa";
 import { item, container, room } from "../../../types"
-
-
+import { FaPencil } from "react-icons/fa6";
+import {RoomActions} from "../components/RoomActions"
 export default function Inventory() {
 
   const containers: container[] = [
@@ -110,56 +110,52 @@ export default function Inventory() {
     label: "Actions"
   }
   ]
-  return (
-    <div className="h-100 min-h-dvh bg-background text-foreground mx-2 pb-6 p-0">
-      <div className="flex flex-col items-center pt-5">
-        <Breadcrumbs>
-          <BreadcrumbItem>{activeContainer.parent}</BreadcrumbItem>
-          <BreadcrumbItem>
-            <Dropdown>
-              <DropdownTrigger>
-                <Button variant="ghost" endContent={<LiaAngleDoubleDownSolid />}>{activeContainer.name}</Button>
-              </DropdownTrigger>
-              <DropdownMenu aria-label="Dynamic Actions" items={rooms} onAction={(key) => updateActiveContainer(rooms[key as number])}>
-                {(item) => (
-                  <DropdownItem key={item.id}>{item.name}</DropdownItem>
-                )}
-              </DropdownMenu>
-            </Dropdown>
-          </BreadcrumbItem>
-        </Breadcrumbs>
-      </div>
-      {/* container component */}
-      <h1 className="text-3xl font-prata text-center text-secondary-800 mt-4">Containers</h1>
-      <div className="lg:grid lg:grid-cols-3 mt-4">
-        <div className="grid lg:col-start-2 grid-cols-8 mt-3">
-          <Button
+  return <div className="h-100 min-h-dvh bg-background text-foreground mx-2 pb-6 p-0">
+    <div className="flex flex-col items-center pt-5">
+      <Breadcrumbs>
+        <BreadcrumbItem>{activeContainer.parent}</BreadcrumbItem>
+        <BreadcrumbItem>
+          <Dropdown>
+            <DropdownTrigger>
+              <Button variant="ghost" endContent={<LiaAngleDoubleDownSolid/>}>{activeContainer.name}</Button>
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Dynamic Actions" items={rooms}
+                          onAction={(key) => updateActiveContainer(rooms[key as number])}>
+              {(item) => <DropdownItem key={item.id}>{item.name}</DropdownItem>}
+            </DropdownMenu>
+          </Dropdown>
+        </BreadcrumbItem>
+      </Breadcrumbs>
+    </div>
+    {/* container component */}
+    <h1 className="text-3xl font-prata text-center text-secondary-800 mt-4">Containers</h1>
+    <div className="lg:grid lg:grid-cols-3 mt-4">
+      <div className="grid lg:col-start-2 grid-cols-8 mt-3">
+        <Button
             className="hidden col-start-6 col-span-3 lg:col-start-7 lg:col-span-2 mb-2"
             size="sm"
-            startContent={<FaPlusSquare />}
+            startContent={<FaPlusSquare/>}
             color="secondary"
-            onClick={() => { alert("Insert Add Container modal here.") }}
-          >
-            Add Container
-          </Button>
-        </div>
-        <div className="hidden md:block col-start-1 text-center mx-36">
-          <h3 className="text-3xl  font-prata">{rooms[0].name}</h3>
-          <h3 className="text-xl">{rooms[0].description}</h3>
-          <Button className="flex mx-auto my-3 w-60" startContent={<FaPlusSquare />} color="primary">Add Container</Button>
-          <Button className="flex mx-auto my-3 w-60" startContent={<FaPlusSquare />} color="secondary">Add Item</Button>
-          <Button className="flex mx-auto my-3 w-60" color="danger" startContent={<FaMinusSquare />}>Delete Room</Button>
-        </div>
-        <div className="grid lg:col-start-2 grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-4 border border-secondary p-3 lg:p-5">
-          {activeContainer.containers.map((item, idx) => {
-            return (
-              <Card shadow="sm" className="border border-secondary-200" key={idx} isPressable>
+            onClick={() => {
+              alert("Insert Add Container modal here.")
+            }}
+        >
+          Add Container
+        </Button>
+      </div>
+      <div className="hidden md:block col-start-1 text-center mx-36">
+        <RoomActions roomName={activeContainer.name} description={activeContainer.description}/>
+      </div>
+      <div
+          className="grid lg:col-start-2 grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-4 border border-secondary p-3 lg:p-5">
+        {activeContainer.containers.map((item, idx) => {
+          return <Card shadow="sm" className="border border-secondary-200" key={idx} isPressable>
                 <Image
-                  removeWrapper
-                  width="100%"
-                  alt={item}
-                  className="w-full h-full object-cover z-0"
-                  src={`https://loremflickr.com/100/100/furniture?random=${idx}`}
+                    removeWrapper
+                    width="100%"
+                    alt={item}
+                    className="w-full h-full object-cover z-0"
+                    src={`https://loremflickr.com/100/100/furniture?random=${idx}`}
                 />
                 <CardFooter className="justify-center">
                   <p className="truncate text-sm font-bold">
@@ -168,86 +164,97 @@ export default function Inventory() {
 
                 </CardFooter>
               </Card>
-            )
-          })}
-        </div>
-        <Divider className="lg:col-start-2 my-4" />
-        <h2 className="lg:col-start-2 text-center text-3xl text-warning-800 font-prata mt-4">Items</h2>
-        <div className="grid lg:col-start-2 grid-cols-8 mt-3">
-          <Button
+        })}
+      </div>
+      <Divider className="lg:col-start-2 my-4"/>
+      <h2 className="lg:col-start-2 text-center text-3xl text-warning-800 font-prata mt-4">Items</h2>
+      <div className="grid lg:col-start-2 grid-cols-8 mt-3">
+        <Button
             className="hidden col-start-6 col-span-3 lg:col-start-7 lg:col-span-2 mb-2"
-            startContent={<FaPlusSquare />}
+            startContent={<FaPlusSquare/>}
             size="sm"
             onPress={onOpen}
             color="warning"
-          >
-            Add Item
-          </Button>
-        </div>
-        <Modal
-          isOpen={isOpen}
-          onOpenChange={onOpenChange}
-          placement="top-center"
-          classNames={{
-            body: "pb-6",
-            base: "bg-slate-900 text-foreground"
-          }}
         >
-          <ModalContent>
-            {(onClose) => (
-              <>
-                <ModalHeader className="dark text-warning">Add Item</ModalHeader>
-                <ModalBody>
-                  <Input label="name" placeholder="Name of Item" autoFocus required />
-                  <Input label="description" type="textarea" placeholder="Item Description" />
-                  <Input label="uid" placeholder="Unique identifier (serial number, etc)" />
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="danger" variant="flat" onPress={onClose}>
-                    Close
-                  </Button>
-                  <Button color="warning" variant="flat" onPress={onClose}>
-                    Submit
-                  </Button>
-                </ModalFooter>
-              </>
-            )}
-          </ModalContent>
-        </Modal>
-        {/* item table */}
-        <Table aria-label="Items table" className="lg:col-start-2 border border-warning">
-          <TableHeader columns={columns}>
-            {(column) => <TableColumn key={column.key} className="text-center">{column.label}</TableColumn>}
-          </TableHeader>
-          <TableBody items={activeContainer.items}>
-            {(item) => (
-              <TableRow key={item.id} className="text-center">
+          Add Item
+        </Button>
+      </div>
+      {/*<Modal*/}
+      {/*    isOpen={isOpen}*/}
+      {/*    onOpenChange={onOpenChange}*/}
+      {/*    placement="top-center"*/}
+      {/*    classNames={{*/}
+      {/*      body: "pb-6",*/}
+      {/*      base: "bg-slate-900 text-foreground"*/}
+      {/*    }}*/}
+      {/*>*/}
+      {/*  <ModalContent>*/}
+      {/*    {(onClose) => <>*/}
+      {/*          <ModalHeader className="dark text-warning">Add Item</ModalHeader>*/}
+      {/*          <ModalBody>*/}
+      {/*            <Input label="name" placeholder="Name of Item" autoFocus required/>*/}
+      {/*            <Input label="description" type="textarea" placeholder="Item Description"/>*/}
+      {/*            <Input label="uid" placeholder="Unique identifier (serial number, etc)"/>*/}
+      {/*          </ModalBody>*/}
+      {/*          <ModalFooter>*/}
+      {/*            <Button color="danger" variant="flat" onPress={onClose}>*/}
+      {/*              Close*/}
+      {/*            </Button>*/}
+      {/*            <Button color="warning" variant="flat" onPress={onClose}>*/}
+      {/*              Submit*/}
+      {/*            </Button>*/}
+      {/*          </ModalFooter>*/}
+      {/*        </>}*/}
+      {/*  </ModalContent>*/}
+      {/*</Modal>*/}
+      {/* item table */}
+      <Table aria-label="Items table" className="lg:col-start-2 border border-warning">
+        <TableHeader columns={columns}>
+          {(column) => <TableColumn key={column.key} className="text-center">{column.label}</TableColumn>}
+        </TableHeader>
+        <TableBody items={activeContainer.items}>
+          {(item) => <TableRow key={item.id} className="text-center">
                 {
                   (columnKey) => {
                     if (columnKey === "actions") {
                       return (
-                        <TableCell className="text-center">
-                          <ButtonGroup>
-                            <Button isIconOnly color="primary">
-                              <GrInspect />
-                            </Button>
-                            <EditButton clickHandler={editAlert} />
-                            <DeleteButton clickHandler={deleteAlert} />
-                          </ButtonGroup>
-                        </TableCell>
+                          <TableCell className="text-center">
+                            <ButtonGroup>
+                              <Button isIconOnly color="primary">
+                                <GrInspect/>
+                              </Button>
+                              <EditButton clickHandler={editAlert}/>
+                              <DeleteButton clickHandler={deleteAlert}/>
+                            </ButtonGroup>
+                          </TableCell>
                       );
                     } else {
                       return (<TableCell>{getKeyValue(item, columnKey)}</TableCell>)
                     }
                   }
                 }
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
+              </TableRow>}
+        </TableBody>
+      </Table>
+
+
     </div>
-  )
+    <Button
+            size="lg"
+            className="md:hidden z-10 bg-sky-600 h-16 w-16 fixed bottom-7 right-7 rounded-full shadow-md shadow-sky-300"
+            isIconOnly
+            onPress={onOpen}
+    >
+      <FaInfoCircle className="text-3xl" />
+    </Button>
+    <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement={"top-center"}>
+      <ModalContent>
+        {(onClose) => (
+            <RoomActions roomName={activeContainer.name} description={activeContainer.description} />
+            )}
+      </ModalContent>
+    </Modal>
+  </div>
 
   function editAlert() {
     alert("I'm being edited!")
