@@ -1,213 +1,266 @@
-import React from "react";
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  Divider,
+  Image,
+  Table,
+  TableBody,
+  TableHeader,
+  TableColumn,
+  TableRow,
+  TableCell,
+  getKeyValue,
+  Button,
+  ButtonGroup,
+  Modal,
+  ModalContent,
+  ModalHeader, ModalBody,
+  useDisclosure,
+  Input,
+  ModalFooter,
+  Dropdown,
+  DropdownTrigger,
+  DropdownItem,
+  DropdownMenu,
+  Breadcrumbs,
+  BreadcrumbItem,
+  DropdownSection
+} from "@nextui-org/react";
+import React from "react"
+import { EditButton, DeleteButton } from "../components/ActionButton";
 import { useState } from "react";
-import { Compass, PlusSquareFill, PencilFill, TrashFill } from "react-bootstrap-icons";
-import Row from "react-bootstrap/Row";
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
-import Table from "react-bootstrap/Table"
-import { Offcanvas, Accordion, Container, Collapse } from "react-bootstrap";
+import { LiaAngleDoubleDownSolid } from "react-icons/lia";
+import { GrInspect } from "react-icons/gr";
+import { BsPencilFill } from "react-icons/bs";
+import {FaInfoCircle, FaMinusSquare, FaTrash} from "react-icons/fa";
+import { FaPlusSquare } from "react-icons/fa";
+import { item, container, room } from "../../../types"
+import { FaPencil } from "react-icons/fa6";
+import {RoomActions} from "../components/RoomActions"
+export default function Inventory() {
 
-export function Inventory() {
-  const [show, setShow] = useState(false);
-  const [open, setOpen] = useState(true);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const containers = [
+  const containers: container[] = [
     {
+      id: 0,
       name: "TV Stand",
-      id: "TVST",
-      idx: 0
+      description: "Shelf holding TV, consoles, and display items.",
+      containers: [],
+      items: [],
+      parent: "Living Room"
+    },
+  ]
+  const rooms: room[] = [
+    {
+      id: 0,
+      name: "Living Room",
+      parent: "Home",
+      description: "The first room on entering the house, holding the TV and sofa.  Upstairs are the bedroom and office, and forward is the dining room.",
+      containers: ["TV Stand", "Black Cube Bookshelf From The Old House, Filled with Memories of Brighter Days", "Shoe Rack", "Cabinet", "Utility Closet"],
+      items: [
+        {
+          key: 1,
+          id: "OTTO",
+          name: "Ottoman",
+        },
+        {
+          key: 2,
+          id: "COUC",
+          name: "Couch",
+        },
+        {
+          key: 3,
+          id: "LVST",
+          name: "Loveseat",
+        },
+      ],
     },
     {
-      name: "Coffee Table",
-      id: "CFTB",
-      idx: 1
+      id: 1,
+      name: "Dining Room",
+      parent: "Home",
+      containers: [],
+      items: [],
+      description: "The dining room."
     },
     {
-      name: "Cube Shelf",
-      id: "CBSH",
-      idx: 2
+      id: 2,
+      name: "Office",
+      parent: "Home",
+      containers: [],
+      items: [],
+      description: "The Office (US Version)"
     },
-    {
-      name: "Shoe Rack",
-      id: "SHRK",
-      idx: 3
-    }
   ];
 
-  return (
-    <>
-      <Row
-        className="justify-content-md-center text-center pt-4"
-        data-bs-theme="dark"
-      >
-        <Row className="mx-auto pt-3 pb-5">
-          <div className="tw-font-kaushan tw-text-5xl tw-text-slate-300 tw-text-shadow tw-shadow-slate-500">
-            Living Room
-          </div>
-        </Row>
-        <Col xs lg={8}>
-          <Accordion defaultActiveKey="1" alwaysOpen>
-            <Accordion.Item eventKey="1">
-              <Accordion.Header>
-                <Col xs={9} lg={11} className="text-center">
-                  Containers
-                </Col>
-                <Col>
-                  <Button variant={"success"}>
-                    <PlusSquareFill />
-                  </Button>
-                </Col>
-              </Accordion.Header>
-              <Accordion.Body>
-                <Row xs={2} lg={4} className="g-4">
-                  {containers.map((container, idx) => (
-                    <Col key={idx}>
-                      <Card className="shadow-lg bg-body-tertiary">
-                        <Card.Img
-                          variant="top"
-                          src="https://placehold.co/100"
-                        />
-                        <Card.Body>
-                          <Card.Title>{container.name}</Card.Title>
-                        </Card.Body>
-                      </Card>
-                    </Col>
-                  ))}
-                </Row>
-              </Accordion.Body>
-            </Accordion.Item>
-            <Accordion.Item eventKey="2">
-              <Accordion.Header>
-                <Col xs={9} lg={11} className="text-center">
-                  Items
-                </Col>
-                <Col>
-                  <Button variant={"success"}>
-                    <PlusSquareFill />
-                  </Button></Col>
-              </Accordion.Header>
-              <Accordion.Body>
-                <Table responsive={"sm"}>
-                  <thead>
-                    <tr>
-                      <th scope="col">Item Name</th>
-                      <th scope="col">Code</th>
-                      <th scope="col">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Ottoman</td>
-                      <td>OTTO</td>
-                      <td>
-                        <Button size={"sm"} variant="warning">
-                          <PencilFill />
-                        </Button>
-                        &nbsp;
-                        <Button size={"sm"} variant="danger">
-                          <TrashFill />
-                        </Button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Couch</td>
-                      <td>COUC</td>
-                      <td>
-                        <Button size={"sm"} variant="warning">
-                          <PencilFill />
-                        </Button>
-                        &nbsp;
-                        <Button size={"sm"} variant="danger">
-                          <TrashFill />
-                        </Button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Loveseat</td>
-                      <td>LVST</td>
-                      <td>
-                        <Button size={"sm"} variant="warning">
-                          <PencilFill />
-                        </Button>
-                        &nbsp;
-                        <Button size={"sm"} variant="danger">
-                          <TrashFill />
-                        </Button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
-        </Col>
-      </Row >
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [activeContainer, updateActiveContainer] = useState(rooms[0]);
 
-      <button
-        title="Open Navigation"
-        className="tw-fixed 
-            tw-z-90 
-            tw-bottom-10 
-            tw-left-8 
-            tw-bg-slate-500 
-            tw-w-12 
-            tw-h-12 
-            tw-rounded-full 
-            tw-drop-shadow-lg 
-            tw-flex 
-            tw-justify-center 
-            tw-items-center 
-            tw-text-white 
-            tw-text-4xl 
-            hover:tw-drop-shadow-2xl 
-            hover:tw-animate-spin
-            tw-duration-10"
-        onClick={handleShow}
-      >
-        <Compass />
-      </button>
 
-      {/* // navigation offcanvas section -- separate component? */}
-      <Offcanvas show={show} onHide={handleClose} data-bs-theme="dark">
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Navigation</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          <Container>
-            <Row>
-              <Col>
-                <nav className="h-100 flex-column align-items-stretch pe-4 border-end">
-                  <nav className="nav nav-pills flex-column">
-                    <button
-                      className="nav"
-                      onClick={() => setOpen(!open)}
-                      aria-controls="collapse-tree"
-                      aria-expanded={open}
-                    >
-                      Home
-                    </button>
-                    <Collapse in={open}>
-                      <div id="collapse-tree">
-                        <nav className="nav nav-pills flex-column">
-                          <a className="nav-link ms-3 my-1">Living Room</a>
-                          <a className="nav-link ms-3 my-1">Dining Room</a>
-                          <a className="nav-link ms-3 my-1">Kitchen</a>
-                          <a className="nav-link ms-3 my-1">Office</a>
-                          <a className="nav-link ms-3 my-1">Bedroom</a>
-                        </nav>
-                      </div>
-                    </Collapse>
-                  </nav>
-                </nav>
-              </Col>
-            </Row>
-          </Container>
-        </Offcanvas.Body>
-      </Offcanvas>
-    </>
-  );
+  const columns = [{
+    key: "name",
+    label: "Name",
+  },
+  {
+    key: "id",
+    label: "ID",
+  },
+  {
+    key: "actions",
+    label: "Actions"
+  }
+  ]
+  return <div className="h-100 min-h-dvh bg-background text-foreground mx-2 pb-6 p-0">
+    <div className="flex flex-col items-center pt-5">
+      <Breadcrumbs>
+        <BreadcrumbItem>{activeContainer.parent}</BreadcrumbItem>
+        <BreadcrumbItem>
+          <Dropdown>
+            <DropdownTrigger>
+              <Button variant="ghost" endContent={<LiaAngleDoubleDownSolid/>}>{activeContainer.name}</Button>
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Dynamic Actions" items={rooms}
+                          onAction={(key) => updateActiveContainer(rooms[key as number])}>
+              {(item) => <DropdownItem key={item.id}>{item.name}</DropdownItem>}
+            </DropdownMenu>
+          </Dropdown>
+        </BreadcrumbItem>
+      </Breadcrumbs>
+    </div>
+    {/* container component */}
+    <h1 className="text-3xl font-prata text-center text-secondary-800 mt-4">Containers</h1>
+    <div className="lg:grid lg:grid-cols-3 mt-4">
+      <div className="grid lg:col-start-2 grid-cols-8 mt-3">
+        <Button
+            className="hidden col-start-6 col-span-3 lg:col-start-7 lg:col-span-2 mb-2"
+            size="sm"
+            startContent={<FaPlusSquare/>}
+            color="secondary"
+            onClick={() => {
+              alert("Insert Add Container modal here.")
+            }}
+        >
+          Add Container
+        </Button>
+      </div>
+      <div className="hidden md:block col-start-1 text-center mx-36">
+        <RoomActions roomName={activeContainer.name} description={activeContainer.description}/>
+      </div>
+      <div
+          className="grid lg:col-start-2 grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-4 border border-secondary p-3 lg:p-5">
+        {activeContainer.containers.map((item, idx) => {
+          return <Card shadow="sm" className="border border-secondary-200" key={idx} isPressable>
+                <Image
+                    removeWrapper
+                    width="100%"
+                    alt={item}
+                    className="w-full h-full object-cover z-0"
+                    src={`https://loremflickr.com/100/100/furniture?random=${idx}`}
+                />
+                <CardFooter className="justify-center">
+                  <p className="truncate text-sm font-bold">
+                    {item}
+                  </p>
+
+                </CardFooter>
+              </Card>
+        })}
+      </div>
+      <Divider className="lg:col-start-2 my-4"/>
+      <h2 className="lg:col-start-2 text-center text-3xl text-warning-800 font-prata mt-4">Items</h2>
+      <div className="grid lg:col-start-2 grid-cols-8 mt-3">
+        <Button
+            className="hidden col-start-6 col-span-3 lg:col-start-7 lg:col-span-2 mb-2"
+            startContent={<FaPlusSquare/>}
+            size="sm"
+            onPress={onOpen}
+            color="warning"
+        >
+          Add Item
+        </Button>
+      </div>
+      {/*<Modal*/}
+      {/*    isOpen={isOpen}*/}
+      {/*    onOpenChange={onOpenChange}*/}
+      {/*    placement="top-center"*/}
+      {/*    classNames={{*/}
+      {/*      body: "pb-6",*/}
+      {/*      base: "bg-slate-900 text-foreground"*/}
+      {/*    }}*/}
+      {/*>*/}
+      {/*  <ModalContent>*/}
+      {/*    {(onClose) => <>*/}
+      {/*          <ModalHeader className="dark text-warning">Add Item</ModalHeader>*/}
+      {/*          <ModalBody>*/}
+      {/*            <Input label="name" placeholder="Name of Item" autoFocus required/>*/}
+      {/*            <Input label="description" type="textarea" placeholder="Item Description"/>*/}
+      {/*            <Input label="uid" placeholder="Unique identifier (serial number, etc)"/>*/}
+      {/*          </ModalBody>*/}
+      {/*          <ModalFooter>*/}
+      {/*            <Button color="danger" variant="flat" onPress={onClose}>*/}
+      {/*              Close*/}
+      {/*            </Button>*/}
+      {/*            <Button color="warning" variant="flat" onPress={onClose}>*/}
+      {/*              Submit*/}
+      {/*            </Button>*/}
+      {/*          </ModalFooter>*/}
+      {/*        </>}*/}
+      {/*  </ModalContent>*/}
+      {/*</Modal>*/}
+      {/* item table */}
+      <Table aria-label="Items table" className="lg:col-start-2 border border-warning">
+        <TableHeader columns={columns}>
+          {(column) => <TableColumn key={column.key} className="text-center">{column.label}</TableColumn>}
+        </TableHeader>
+        <TableBody items={activeContainer.items}>
+          {(item) => <TableRow key={item.id} className="text-center">
+                {
+                  (columnKey) => {
+                    if (columnKey === "actions") {
+                      return (
+                          <TableCell className="text-center">
+                            <ButtonGroup>
+                              <Button isIconOnly color="primary">
+                                <GrInspect/>
+                              </Button>
+                              <EditButton clickHandler={editAlert}/>
+                              <DeleteButton clickHandler={deleteAlert}/>
+                            </ButtonGroup>
+                          </TableCell>
+                      );
+                    } else {
+                      return (<TableCell>{getKeyValue(item, columnKey)}</TableCell>)
+                    }
+                  }
+                }
+              </TableRow>}
+        </TableBody>
+      </Table>
+
+
+    </div>
+    <Button
+            size="lg"
+            className="md:hidden z-10 bg-sky-600 h-16 w-16 fixed bottom-7 right-7 rounded-full shadow-md shadow-sky-300"
+            isIconOnly
+            onPress={onOpen}
+    >
+      <FaInfoCircle className="text-3xl" />
+    </Button>
+    <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement={"top-center"}>
+      <ModalContent>
+        {(onClose) => (
+            <RoomActions roomName={activeContainer.name} description={activeContainer.description} />
+            )}
+      </ModalContent>
+    </Modal>
+  </div>
+
+  function editAlert() {
+    alert("I'm being edited!")
+  }
+
+  function deleteAlert() {
+    alert("Are you sure you want to delete?")
+  }
 }

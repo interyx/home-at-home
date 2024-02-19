@@ -10,6 +10,7 @@ function Root() {
     <Container
       fluid
       className="tw-bg-slate-800 tw-text-slate-200 m-0 p-0 tw-min-h-screen"
+      data-bs-theme="dark"
     >
       <Navigation />
       <Container className="tw-bg-slate-800 tw-min-h-screen tw-min-w-full">

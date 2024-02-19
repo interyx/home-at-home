@@ -1,61 +1,15 @@
-import React from "react";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import React from "react"
 
 export default function Home() {
   return (
-    <Container fluid className="tw-bg-slate-800 px-4">
-      <Row>
-        <Col className="text-center tw-w-screen tw-object-contain">
-          <div className="tw-font-kaushan tw-text-5xl lg:tw-text-7xl tw-text-shadow tw-shadow-slate-50 py-4">
-            Welcome to Home@Home!
-          </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs={12} md={6} lg={4}>
-          <h4 className="tw-text-3xl">An app to augment your home.</h4>
-          <p>
-            Zombie ipsum reversus ab viral inferno, nam rick grimes malum
-            cerebro. De carne lumbering animata corpora quaeritis. Summus brains
-            sit, morbo vel maleficia? De apocalypsi gorger omero undead survivor
-            dictum mauris. Hi mindless mortuis soulless creaturas, imo evil
-            stalking monstra adventus resi dentevil vultus comedat cerebella
-            viventium. Qui animated corpse, cricket bat max brucks terribilem
-            incessu zomby. The voodoo sacerdos flesh eater, suscitat mortuos
-            comedere carnem virus. Zonbi tattered for solum oculi eorum
-            defunctis go lum cerebro. Nescio brains an Undead zombies. Sicut
-            malus putrid voodoo horror. Nigh tofth eliv ingdead.
-          </p>
-        </Col>
-        <Col xs={12} md={6} lg={4}>
-          <h4>To take things off of your plate.</h4>
-          <p>
-            Zombies reversus ab inferno, nam malum cerebro. De carne animata
-            corpora quaeritis. Summus sit, morbo vel maleficia? De Apocalypsi
-            undead dictum mauris. Hi mortuis soulless creaturas, imo monstra
-            adventus vultus comedat cerebella viventium. Qui offenderit rapto,
-            terribilem incessu. The voodoo sacerdos suscitat mortuos comedere
-            carnem. Search for solum oculi eorum defunctis cerebro. Nescio an
-            Undead zombies. Sicut malus movie horror.
-          </p>
-        </Col>
-        <Col xs={12} md={6} lg={4}>
-          <h4>While helping you get dinner on the table.</h4>
-          <p>
-            Cum horribilem walking dead resurgere de crazed sepulcris creaturis,
-            zombie sicut de grave feeding iride et serpens. Pestilentia, shaun
-            ofthe dead scythe animated corpses ipsa screams. Pestilentia est
-            plague haec decaying ambulabat mortuos. Sicut zeder apathetic malus
-            voodoo. Aenean a dolor plan et terror soulless vulnerum contagium
-            accedunt, mortui iam vivam unlife. Qui tardius moveri, brid eof
-            reanimator sed in magna copia sint terribiles undeath legionis. Alii
-            missing oculis aliorum sicut serpere crabs nostram. Putridi
-            braindead odores ki ll and infect, aere implent left four dead.
-          </p>
-        </Col>
-      </Row>
-    </Container>
-  );
+    <>
+      <div className="text-center pt-2 mt-2">
+        <h1 className="text-5xl font-kaushan text-slate-300 text-shadow shadow-slate-300">Welcome to Home At Home!</h1>
+      </div>
+      <div className="p-3 m-3 grid grid-cols-1 md:grid-cols-2 row-span-2 md:justify-center">
+        <div className="max-w-40 m-auto text-center">This app is a <span className="text-warning">work in progress.</span>  Eventually, I'd like to get it up and running so that it's useful to a lot of people.  Currently, it is useful to <span className="text-success">nobody</span>!</div>
+        <div className="max-w-60 p-3 m-3 text-center">I'm working on the Inventory component right now, which is why none of the other buttons work.  There is no way to store information and precious little way to add it.  It's still coming.  If I ever actually work on it instead of redesigning the visual elements.</div>
+      </div>
+    </>
+  )
 }

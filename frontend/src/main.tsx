@@ -1,30 +1,15 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Root from "./routes/root";
-import Home from "./routes/home";
-import {Inventory} from "./features/inventory"
-import "./index.css";
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App'
+import { BrowserRouter } from "react-router-dom"
+import './index.css'
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Root />,
-    children: [
-      {
-        index: true,
-        element: <Home />,
-      },
-      {
-        path: "/inventory",
-        element: <Inventory />,
-      },
-    ],
-  },
-]);
-
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <BrowserRouter>
+      <main className="dark text-foreground bg-background min-h-dvh">
+        <App />
+      </main>
+    </BrowserRouter>
   </React.StrictMode>
-);
+)
