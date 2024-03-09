@@ -9,7 +9,7 @@ interface Props {
 }
 export const RoomActions: React.FC<Props> = ({roomName, description}) => {
     return (
-        <div className="dark bg-background text-foreground p-5">
+        <div className="dark bg-background text-foreground p-5 lg:p-3">
             <h3 className="text-center text-3xl lg:text-5xl mb-5 font-prata">{roomName}</h3>
             <h3 className="text-xl mb-5">{description}</h3>
             <Button className="flex mx-auto my-1 w-60 border border-primary-200" startContent={<FaPlusSquare/>} color="primary">Add Container</Button>
