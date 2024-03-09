@@ -32,11 +32,10 @@ import { EditButton, DeleteButton } from "../components/ActionButton";
 import { useState } from "react";
 import { LiaAngleDoubleDownSolid } from "react-icons/lia";
 import { GrInspect } from "react-icons/gr";
-import { BsPencilFill } from "react-icons/bs";
 import {FaInfoCircle, FaMinusSquare, FaTrash} from "react-icons/fa";
 import { FaPlusSquare } from "react-icons/fa";
-import { item, container, room } from "../../../types"
-import { FaPencil } from "react-icons/fa6";
+// @ts-ignore
+import { item, container, room } from "@/types"
 import {RoomActions} from "../components/RoomActions"
 export default function Inventory() {
 
@@ -143,18 +142,18 @@ export default function Inventory() {
           Add Container
         </Button>
       </div>
-      <div className="hidden md:block col-start-1 text-center mx-36">
+      <div className="hidden md:block col-start-1 text-center lg:mx-30">
         <RoomActions roomName={activeContainer.name} description={activeContainer.description}/>
       </div>
       <div
           className="grid lg:col-start-2 grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-4 border border-secondary p-3 lg:p-5">
-        {activeContainer.containers.map((item, idx) => {
+        {activeContainer.containers.map((item:item, idx:number) => {
           return <Card shadow="sm" className="border border-secondary-200" key={idx} isPressable>
                 <Image
                     removeWrapper
                     width="100%"
                     alt={item}
-                    className="w-full h-full object-cover z-0"
+                    className="w-full object-cover z-0"
                     src={`https://loremflickr.com/100/100/furniture?random=${idx}`}
                 />
                 <CardFooter className="justify-center">
@@ -213,7 +212,7 @@ export default function Inventory() {
           {(column) => <TableColumn key={column.key} className="text-center">{column.label}</TableColumn>}
         </TableHeader>
         <TableBody items={activeContainer.items}>
-          {(item) => <TableRow key={item.id} className="text-center">
+          {(item:item) => <TableRow key={item.id} className="text-center">
                 {
                   (columnKey) => {
                     if (columnKey === "actions") {

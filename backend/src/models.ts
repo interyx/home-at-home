@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const homeSchema = new mongoose.Schema({
@@ -10,31 +10,31 @@ const homeSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  containers: {
-    type: Array,
+  spaces: {
+    type: String,
     required: false,
   },
   items: {
     type: Array,
     required: false,
-  }
-})
+  },
+});
 
-const containerSchema = Schema({
+const spaceSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String, required: false },
-  containers: [{ type: this, default: undefined }],
-  items: [{ type: Schema.Types.ObjectId, ref: 'Item', default: undefined }],
-})
+  items: [{ type: Schema.Types.ObjectId, ref: "Item", default: undefined }],
+});
 
-const itemSchema = Schema({
+const itemSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: false },
-  image: { type: String, required: false }
-})
+  image: { type: String, required: false },
+  items: [{ type: this, default: undefined }],
+});
 
 const Home = mongoose.model("Home", homeSchema);
 const Item = mongoose.model("Item", itemSchema);
-const Container = mongoose.model('Container', containerSchema);
+const Space = mongoose.model("Space", spaceSchema);
 
-module.exports = { Home, Item, Container };
+module.exports = { Home, Item, Space };
