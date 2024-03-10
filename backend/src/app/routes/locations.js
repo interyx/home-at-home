@@ -1,6 +1,6 @@
-const controllers = require('../controllers/location.js')
+const controllers = require('../controllers/locations.js')
 const router = require('express').Router()
 
 module.exports = () => {
-    router.get('/locations', controllers.allLocations)
+    router.get('/', controllers.getAllLocations)
 }
