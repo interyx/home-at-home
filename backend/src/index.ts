@@ -1,37 +1,38 @@
-import { Request, Response, NextFunction } from 'express'
+import { Request, Response  } from 'express'
 
+const { nanoid } = require("nanoid");
 const express = require("express");
 const mongoose = require("mongoose");
 
-const { Home } = require("./models");
+const { Location } = require("./models");
 
 const app = express();
 const port = 4000;
 
 app.use(express.json());
 
-app.get("/homes", async (req: Request, res: Response) => {
-  const allHomes = await Home.find();
-  return res.status(200).json(allHomes);
+app.get("/locations", async (req: Request, res: Response) => {
+  const allLocations = await Location.find();
+  return res.status(200).json(allLocations);
 });
 
-app.get("/homes/:id", async (req: Request, res: Response) => {
+app.get("/locations/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
-  const home = await Home.findById(id);
-  return res.status(200).json(home);
+  const location = await Location.findById(id);
+  return res.status(200).json(location);
 })
 
-app.post("/homes", async (req: Request, res: Response) => {
-  const newHome = new Home({ ...req.body });
-  const insertedHome = await newHome.save();
-  return res.status(201).json(insertedHome);
+app.post("/locations", async (req: Request, res: Response) => {
+  const newLocation = new Location({ "shortID": nanoid(5), ...req.body });
+  const insertedLocation = await newLocation.save();
+  return res.status(201).json(insertedLocation);
 });
 
-app.put("/homes/:id", async (req: Request, res: Response) => {
+app.put("/locations/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
-  await Home.updateOne({ _id: id }, req.body);
-  const updatedHome = await Home.findById(id);
-  return res.status(200).json(updatedHome);
+  await Location.updateOne({ _id: id }, req.body);
+  const updatedLocation = await Location.findById(id);
+  return res.status(200).json(updatedLocation);
 })
 
 const start = async () => {

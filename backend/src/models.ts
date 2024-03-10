@@ -1,40 +1,33 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const homeSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  address: {
-    type: String,
-    required: false,
-  },
-  spaces: {
-    type: String,
-    required: false,
-  },
-  items: {
-    type: Array,
-    required: false,
-  },
+const locationSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  address: { type: String, required: false },
+  description: { type: String, required: false },
+  shortID: {type: String, required: true}
 });
 
 const spaceSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String, required: false },
-  items: [{ type: Schema.Types.ObjectId, ref: "Item", default: undefined }],
+  shortId: { type: String, required: true },
+  home: { type: Schema.Types.ObjectId, ref: "Location" },
+  parent: { type: this, default: undefined },
 });
 
 const itemSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: false },
   image: { type: String, required: false },
-  items: [{ type: this, default: undefined }],
+  shortId: { type: String, required: true },
+  location: { type: Schema.Types.ObjectId, ref: "Space" },
+  parent: { type: this, default: undefined },
+  isContainer: { type: Boolean, required: true },
 });
 
-const Home = mongoose.model("Home", homeSchema);
+const Location = mongoose.model("Location", locationSchema);
 const Item = mongoose.model("Item", itemSchema);
 const Space = mongoose.model("Space", spaceSchema);
 
-module.exports = { Home, Item, Space };
+module.exports = { Location, Item, Space };
