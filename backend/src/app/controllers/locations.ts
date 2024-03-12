@@ -16,7 +16,6 @@ exports.getAllLocations = asyncHandler(async (req: Request, res: Response) => {
 exports.getLocationById = asyncHandler(async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        console.log(id);
         const location = await locationById(id)
         return res.status(200).json(location);
     }
