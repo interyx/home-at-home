@@ -28,4 +28,13 @@ async function removeLocationById(id: String) {
     return response;
 }
 
-module.exports = { allLocations, locationById, addLocation, removeLocationById }
+async function updateLocationById(id: String, updatedLocation: InventoryLocation) {
+    const location = await Location.findOne({shortId: id})
+    location.name = updatedLocation.name;
+    location.address = updatedLocation.address;
+    location.description = updatedLocation.description;
+    const response = await location.save();
+    return response;
+}
+
+module.exports = { allLocations, locationById, addLocation, removeLocationById, updateLocationById }
