@@ -8,6 +8,7 @@ const spaceSchema = new mongoose.Schema({
   location: { type: Schema.Types.ObjectId, ref: "Location", required: true },
   parent: { type: this, default: undefined },
 });
+spaceSchema.index({name: 'text'});
 
 const Space = mongoose.model("Space", spaceSchema)
 module.exports = { Space }

@@ -21,4 +21,19 @@ async function findAllSpacesByLocation(locationId: String) {
   return spaces;
 }
 
-module.exports = { addSpace, findAllSpacesByLocation }
+async function findSpaceByShortId(shortIdRequest: String) {
+  const space = await Space.findOne({ shortId: shortIdRequest })
+  return space;
+}
+
+async function findSpaceByLongId(longIdRequest: String) {
+  const space = await Space.findById(longIdRequest);
+  return space;
+}
+
+async function searchSpacesByName(nameRequest: String) {
+  const spaces = await Space.find({ $text: {$search: nameRequest} }, 'name')
+  return spaces;
+}
+
+module.exports = { addSpace, findAllSpacesByLocation, findSpaceByShortId, findSpaceByLongId, searchSpacesByName }
