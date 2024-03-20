@@ -16,4 +16,9 @@ async function addSpace(spaceInfo: InventorySpace) {
   return space;
 }
 
-module.exports = { addSpace }
+async function findAllSpacesByLocation(locationId: String) {
+  const spaces = await Space.find({ location: locationId })
+  return spaces;
+}
+
+module.exports = { addSpace, findAllSpacesByLocation }
