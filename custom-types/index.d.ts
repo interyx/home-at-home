@@ -2,13 +2,21 @@
 declare module 'inventory-types' {
 
 import { Types } from "mongoose"
-  export type InventoryLocation = {
+  export type LocationData = {
     name: String;
     address?: String;
     description?: String;
   }
 
-  export type InventorySpace = {
+  export type LocationModel = {
+    _id: Types.ObjectId;
+    shortId: String;
+    name: String;
+    address: String;
+    description: String;
+  }
+
+  export type SpaceData = {
     name: String;
     description?: String;
     parent?: String;

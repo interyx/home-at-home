@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { InventoryLocation } from 'inventory-types';
+import { LocationData } from 'inventory-types';
 const asyncHandler = require("express-async-handler")
 
 const { allLocations, locationById, addLocation, removeLocationById, updateLocationById } = require('../services/locations')
@@ -31,7 +31,7 @@ exports.addNewLocation = asyncHandler(async (req: Request, res: Response) => {
             name: req.body.name,
             address: typeof req.body.address === "string" ? req.body.address : "",
             description: typeof req.body.description === "string" ? req.body.description : ""
-        } as InventoryLocation
+        } as LocationData
         const response = await addLocation(newLocation);
         return res.status(201).json(response);
     } catch (err) {

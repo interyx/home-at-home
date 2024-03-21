@@ -1,9 +1,9 @@
-import { InventorySpace, SpaceModel } from "inventory-types"
+import { SpaceData, SpaceModel } from "inventory-types"
 const { Space } = require("../models/space")
 const { nanoid } = require("nanoid")
 
 
-async function addSpace(spaceInfo: InventorySpace) {
+async function addSpace(spaceInfo: SpaceData) {
   let newSpace = new Space({
     shortId: nanoid(5),
     name: spaceInfo.name,

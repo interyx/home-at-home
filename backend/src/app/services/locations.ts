@@ -1,4 +1,4 @@
-import { InventoryLocation } from "inventory-types";
+import { LocationData } from "inventory-types";
 
 const { Location } = require('../models/location')
 const { nanoid } = require("nanoid")
@@ -13,7 +13,7 @@ async function locationById(id: String) {
     return response;
 }
 
-async function addLocation(location: InventoryLocation) {
+async function addLocation(location: LocationData) {
     let newLocation = new Location({
         name: location.name,
         address: location.address,
@@ -28,7 +28,7 @@ async function removeLocationById(id: String) {
     return response;
 }
 
-async function updateLocationById(id: String, updatedLocation: InventoryLocation) {
+async function updateLocationById(id: String, updatedLocation: LocationData) {
     const location = await Location.findOne({shortId: id})
     location.name = updatedLocation.name;
     location.address = updatedLocation.address;
