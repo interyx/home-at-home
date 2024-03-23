@@ -98,9 +98,10 @@ exports.changeSpace = asyncHandler(async (req: Request, res: Response) => {
     const newParent = req.body.parent;
     const target = await findSpaceByShortId(query);
     if (typeof newLocation === "string") {
+      // TODO refactor this, it's touching the model layer in a way I don't like
       const location = await Location.exists({ shortId: newLocation })
       if (!location) {
-        return res.status(400).send(`Location ID ${target.location} is invalid.  Update operation canceled.`)
+        return res.status(400).send(`Location ID ${req.body.location} is invalid.  Update operation canceled.`)
       }
     }
     if (typeof newParent === "string") {

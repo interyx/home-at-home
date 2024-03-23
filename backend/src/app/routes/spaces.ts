@@ -6,5 +6,6 @@ router.get("/", controllers.findAllSpaces);
 router.get('/short', controllers.findOneSpaceByShortId);
 router.get('/long', controllers.findOneSpaceByLongId)
 router.get('/search', controllers.searchSpaceName)
+router.put('/:id', controllers.changeSpace)
 
 module.exports = router;
